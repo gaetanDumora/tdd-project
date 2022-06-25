@@ -7,8 +7,16 @@ export class Portfolio {
     add(...money) {
         this.moneys = this.moneys.concat(money)
     }
+    convert(money, currency) {
+        let eurToUsd = 1.2
+        if(money.currency === currency){
+            return money.amount
+        }
+        return money.amount * eurToUsd
+    }
     evaluate(currency) {
-        let moneysAmount = this.moneys.reduce((acc, curr) => acc + curr.amount, 0)
-        return new Money(moneysAmount, "EUR")
+        let moneysAmount = this.moneys.reduce((acc, curr) =>
+            acc + this.convert(curr, currency), 0)
+        return new Money(moneysAmount, currency)
     }
 }

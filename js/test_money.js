@@ -10,9 +10,9 @@ class MoneyTest {
         return testMethods
     }
     testMultiplication() {
-        let fiveDollards = new Money(5, 'USD')
-        let tenDollards = new Money(10, 'USD')
-        assert.deepStrictEqual(fiveDollards.times(2), tenDollards)
+        let fiveDollars = new Money(5, 'USD')
+        let tenDollars = new Money(10, 'USD')
+        assert.deepStrictEqual(fiveDollars.times(2), tenDollars)
     }
     testDivision() {
         let actualYan = new Money(20, 'YAN')
@@ -27,6 +27,14 @@ class MoneyTest {
         let portfolio = new Portfolio()
         portfolio.add(fiveEuros, tenEuros)
         assert.deepStrictEqual(portfolio.evaluate('EUR'), fiveteenEuros)
+    }
+    testAdditionOfDollarsAndEuros(){
+        let fiveDollars = new Money(5, 'USD')
+        let tenEuros = new Money(10, 'EUR')
+        let portfolio = new Portfolio()
+        portfolio.add(fiveDollars, tenEuros)
+        let expectedValue = new Money(17, 'USD')
+        assert.deepStrictEqual(portfolio.evaluate('USD'), expectedValue)
     }
     runAllTests() {
         let testMethods = this.getAllTestMethods()

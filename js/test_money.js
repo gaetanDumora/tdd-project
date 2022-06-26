@@ -28,7 +28,7 @@ class MoneyTest {
         portfolio.add(fiveEuros, tenEuros)
         assert.deepStrictEqual(portfolio.evaluate('EUR'), fiveteenEuros)
     }
-    testAdditionOfDollarsAndEuros(){
+    testAdditionOfDollarsAndEuros() {
         let fiveDollars = new Money(5, 'USD')
         let tenEuros = new Money(10, 'EUR')
         let portfolio = new Portfolio()
@@ -36,13 +36,22 @@ class MoneyTest {
         let expectedValue = new Money(17, 'USD')
         assert.deepStrictEqual(portfolio.evaluate('USD'), expectedValue)
     }
-    testAdditionOfDollarsToWons(){
+    testAdditionOfDollarsToWons() {
         let oneDollar = new Money(1, 'USD')
         let elevenHundredWon = new Money(1100, 'KRW')
         let portfolio = new Portfolio()
         portfolio.add(oneDollar, elevenHundredWon)
         let expectedValue = new Money(2200, 'KRW')
         assert.deepStrictEqual(portfolio.evaluate('KRW'), expectedValue)
+    }
+    testAdditionWithMultiMissingExchangeRates() {
+        let oneEuro = new Money(1, 'EUR')
+        let oneDollar = new Money(1, 'USD')
+        let oneWon = new Money(1, 'KRW')
+        let portfolio = new Portfolio()
+        portfolio.add(oneEuro, oneDollar, oneWon)
+        let expectedError = new Error('Missing exchange rate(s): [EUR->Kalganid,USD->Kalganid,KRW->Kalganid]')
+        assert.throws(() => portfolio.evaluate('Kalganid'), expectedError)
     }
     runAllTests() {
         let testMethods = this.getAllTestMethods()

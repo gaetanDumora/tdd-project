@@ -77,6 +77,7 @@ class MoneyTest {
             console.log('Running: %s()', m)
             let method = Reflect.get(this, m)
             try {
+                // Equivalent to this[m]()
                 Reflect.apply(method, this, [])
             } catch (error) {
                 if (error instanceof assert.AssertionError) {
